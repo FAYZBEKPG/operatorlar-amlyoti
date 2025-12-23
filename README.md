@@ -1,0 +1,2 @@
+# operatorlar-amlyoti
+aperotor
