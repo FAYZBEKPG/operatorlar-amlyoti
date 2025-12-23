@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Operator Playground</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .card h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+            border-bottom: 3px solid #764ba2;
+            padding-bottom: 10px;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .input-group input, .input-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        .input-group input:focus, .input-group select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        button {
+            width: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+            display: none;
+        }
+
+        .result.show {
+            display: block;
+        }
+
+        .result h3 {
+            color: #764ba2;
+            margin-bottom: 10px;
+        }
+
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .result-item:last-child {
+            border-bottom: none;
+        }
+
+        .success {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .error {
+            color: #dc3545;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎮 Operator Playground</h1>
+
+        <div class="cards">
+            <!-- 1. ARIFMETIK -->
+            <div class="card">
+                <h2>➕ Arifmetik Operatorlar</h2>
+                <div class="input-group">
+                    <label>Birinchi son:</label>
+                    <input type="number" id="arif1" value="10">
+                </div>
+                <div class="input-group">
+                    <label>Operator:</label>
+                    <select id="arifOp">
+                        <option value="+">+ Qo'shish</option>
+                        <option value="-">- Ayirish</option>
+                        <option value="*">* Ko'paytirish</option>
+                        <option value="/">/ Bo'lish</option>
+                        <option value="%">% Qoldiq</option>
+                        <option value="**">** Daraja</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label>Ikkinchi son:</label>
+                    <input type="number" id="arif2" value="5">
+                </div>
+                <button onclick="arifmetik()">Hisoblash</button>
+                <div id="arifResult" class="result"></div>
+            </div>
+
+            <!-- 2. TAQQOSLASH -->
+            <div class="card">
+                <h2>⚖️ Taqqoslash Operatorlari</h2>
+                <div class="input-group">
+                    <label>Birinchi qiymat:</label>
+                    <input type="text" id="comp1" value="10">
+                </div>
+                <div class="input-group">
+                    <label>Ikkinchi qiymat:</label>
+                    <input type="text" id="comp2" value="10">
+                </div>
+                <button onclick="taqqoslash()">Taqqoslash</button>
+                <div id="compResult" class="result"></div>
+            </div>
+
+            <!-- 3. MANTIQIY -->
+            <div class="card">
+                <h2>🧠 Mantiqiy Operatorlar</h2>
+                <div class="input-group">
+                    <label>Birinchi shart:</label>
+                    <input type="text" id="logic1" placeholder="5 > 3">
+                </div>
+                <div class="input-group">
+                    <label>Operator:</label>
+                    <select id="logicOp">
+                        <option value="&&">AND (&&)</option>
+                        <option value="||">OR (||)</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label>Ikkinchi shart:</label>
+                    <input type="text" id="logic2" placeholder="10 < 20">
+                </div>
+                <button onclick="mantiqiy()">Tekshirish</button>
+                <div id="logicResult" class="result"></div>
+            </div>
+
+            <!-- 4. TERNARY -->
+            <div class="card">
+                <h2>🔀 Ternary Operator</h2>
+                <div class="input-group">
+                    <label>Ball:</label>
+                    <input type="number" id="ternaryBall" value="85">
+                </div>
+                <button onclick="ternary()">Bahoni Aniqlash</button>
+                <div id="ternaryResult" class="result"></div>
+            </div>
+
+            <!-- 5. LOGIN TIZIMI -->
+            <div class="card">
+                <h2>🔐 Login Tizimi</h2>
+                <div class="input-group">
+                    <label>Username:</label>
+                    <input type="text" id="loginUser" value="admin">
+                </div>
+                <div class="input-group">
+                    <label>Password:</label>
+                    <input type="password" id="loginPass" value="12345">
+                </div>
+                <button onclick="login()">Login</button>
+                <div id="loginResult" class="result"></div>
+            </div>
+
+            <!-- 6. PAROL KUCHI -->
+            <div class="card">
+                <h2>🔑 Parol Kuchi</h2>
+                <div class="input-group">
+                    <label>Parol kiriting:</label>
+                    <input type="text" id="parolInput" placeholder="Qwerty123">
+                </div>
+                <button onclick="parolTekshir()">Tekshirish</button>
+                <div id="parolResult" class="result"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 1. ARIFMETIK
+        function arifmetik() {
+            const num1 = parseFloat(document.getElementById('arif1').value);
+            const num2 = parseFloat(document.getElementById('arif2').value);
+            const op = document.getElementById('arifOp').value;
+
+            let natija;
+            switch(op) {
+                case '+': natija = num1 + num2; break;
+                case '-': natija = num1 - num2; break;
+                case '*': natija = num1 * num2; break;
+                case '/': natija = num1 / num2; break;
+                case '%': natija = num1 % num2; break;
+                case '**': natija = num1 ** num2; break;
+            }
+
+            document.getElementById('arifResult').innerHTML = `
+                <h3>Natija:</h3>
+                <div class="result-item">
+                    <span>${num1} ${op} ${num2}</span>
+                    <span class="success">${natija}</span>
+                </div>
+            `;
+            document.getElementById('arifResult').classList.add('show');
+        }
+
+        // 2. TAQQOSLASH
+        function taqqoslash() {
+            let val1 = document.getElementById('comp1').value;
+            let val2 = document.getElementById('comp2').value;
+
+            // Raqamga aylantirishga harakat
+            if (!isNaN(val1) && !isNaN(val2)) {
+                val1 = Number(val1);
+                val2 = Number(val2);
+            }
+
+            document.getElementById('compResult').innerHTML = `
+                <h3>Natijalar:</h3>
+                <div class="result-item"><span>Qiymatlar:</span><span>${JSON.stringify(val1)} va ${JSON.stringify(val2)}</span></div>
+                <div class="result-item"><span>== (loose):</span><span>${val1 == val2}</span></div>
+                <div class="result-item"><span>=== (strict):</span><span>${val1 === val2}</span></div>
+                <div class="result-item"><span>!= (loose):</span><span>${val1 != val2}</span></div>
+                <div class="result-item"><span>!== (strict):</span><span>${val1 !== val2}</span></div>
+                <div class="result-item"><span>> (katta):</span><span>${val1 > val2}</span></div>
+                <div class="result-item"><span>< (kichik):</span><span>${val1 < val2}</span></div>
+                <div class="result-item"><span>>= (katta/teng):</span><span>${val1 >= val2}</span></div>
+                <div class="result-item"><span><= (kichik/teng):</span><span>${val1 <= val2}</span></div>
+            `;
+            document.getElementById('compResult').classList.add('show');
+        }
+
+        // 3. MANTIQIY
+        function mantiqiy() {
+            const shart1Input = document.getElementById('logic1').value;
+            const shart2Input = document.getElementById('logic2').value;
+            const op = document.getElementById('logicOp').value;
+
+            try {
+                const shart1 = eval(shart1Input);
+                const shart2 = eval(shart2Input);
+                let natija;
+
+                if (op === '&&') {
+                    natija = shart1 && shart2;
+                } else {
+                    natija = shart1 || shart2;
+                }
+
+                document.getElementById('logicResult').innerHTML = `
+                    <h3>Natijalar:</h3>
+                    <div class="result-item"><span>1-shart (${shart1Input}):</span><span>${shart1}</span></div>
+                    <div class="result-item"><span>2-shart (${shart2Input}):</span><span>${shart2}</span></div>
+                    <div class="result-item"><span>Operator:</span><span>${op}</span></div>
+                    <div class="result-item"><span>Natija:</span><span class="success">${natija}</span></div>
+                `;
+                document.getElementById('logicResult').classList.add('show');
+            } catch(e) {
+                document.getElementById('logicResult').innerHTML = `
+                    <h3>Xato!</h3>
+                    <div class="result-item"><span class="error">Shartlarni to'g'ri kiriting</span></div>
+                `;
+                document.getElementById('logicResult').classList.add('show');
+            }
+        }
+
+        // 4. TERNARY
+        function ternary() {
+            const ball = parseFloat(document.getElementById('ternaryBall').value);
+
+            const baho = ball >= 90 ? "A'lo (5)" :
+                        ball >= 80 ? "Yaxshi (4)" :
+                        ball >= 70 ? "Qoniqarli (3)" :
+                        ball >= 60 ? "Qoniqarsiz (2)" : "Yomon (1)";
+
+            const emoji = ball >= 90 ? "🌟" :
+                         ball >= 80 ? "😊" :
+                         ball >= 70 ? "🙂" :
+                         ball >= 60 ? "😐" : "😢";
+
+            const holat = ball >= 60 ? "O'TDI ✅" : "O'TMADI ❌";
+            const klass = ball >= 60 ? "success" : "error";
+
+            document.getElementById('ternaryResult').innerHTML = `
+                <h3>Natija:</h3>
+                <div class="result-item"><span>Ball:</span><span>${ball}</span></div>
+                <div class="result-item"><span>Baho:</span><span>${baho} ${emoji}</span></div>
+                <div class="result-item"><span>Holat:</span><span class="${klass}">${holat}</span></div>
+            `;
+            document.getElementById('ternaryResult').classList.add('show');
+        }
+
+        // 5. LOGIN
+        function login() {
+            const username = document.getElementById('loginUser').value;
+            const password = document.getElementById('loginPass').value;
+
+            const usernameTogri = username === "admin";
+            const passwordTogri = password === "12345";
+            const loginSuccess = usernameTogri && passwordTogri;
+
+            let html = '<h3>Login Natijasi:</h3>';
+            html += `<div class="result-item"><span>Username:</span><span>${usernameTogri ? '✅' : '❌'}</span></div>`;
+            html += `<div class="result-item"><span>Password:</span><span>${passwordTogri ? '✅' : '❌'}</span></div>`;
+
+            if (loginSuccess) {
+                html += `<div class="result-item"><span>Status:</span><span class="success">KIRISH MUVAFFAQIYATLI ✅</span></div>`;
+            } else {
+                html += `<div class="result-item"><span>Status:</span><span class="error">XATO ❌</span></div>`;
+                if (!usernameTogri) html += `<div class="result-item"><span class="error">Username noto'g'ri (admin)</span></div>`;
+                if (!passwordTogri) html += `<div class="result-item"><span class="error">Password noto'g'ri (12345)</span></div>`;
+            }
+
+            document.getElementById('loginResult').innerHTML = html;
+            document.getElementById('loginResult').classList.add('show');
+        }
+
+        // 6. PAROL KUCHI
+        function parolTekshir() {
+            const parol = document.getElementById('parolInput').value;
+
+            const uzunlik = parol.length >= 8;
+            const kattaHarf = /[A-Z]/.test(parol);
+            const kichikHarf = /[a-z]/.test(parol);
+            const raqam = /\d/.test(parol);
+            const maxsusBelgi = /[!@#$%^&*]/.test(parol);
+
+            const kuchli = uzunlik && kattaHarf && kichikHarf && raqam;
+            const judaKuchli = kuchli && maxsusBelgi;
+
+            let daraja = judaKuchli ? "JUDA KUCHLI 🔐" :
+                        kuchli ? "KUCHLI 🔒" :
+                        uzunlik ? "O'RTACHA 🔓" : "ZAIF ⚠️";
+
+            let klass = judaKuchli || kuchli ? "success" : "error";
+
+            let html = '<h3>Parol Tahlili:</h3>';
+            html += `<div class="result-item"><span>Uzunlik (8+):</span><span>${uzunlik ? '✅' : '❌'}</span></div>`;
+            html += `<div class="result-item"><span>Katta harf:</span><span>${kattaHarf ? '✅' : '❌'}</span></div>`;
+            html += `<div class="result-item"><span>Kichik harf:</span><span>${kichikHarf ? '✅' : '❌'}</span></div>`;
+            html += `<div class="result-item"><span>Raqam:</span><span>${raqam ? '✅' : '❌'}</span></div>`;
+            html += `<div class="result-item"><span>Maxsus belgi:</span><span>${maxsusBelgi ? '✅' : '❌'}</span></div>`;
+            html += `<div class="result-item"><span>Daraja:</span><span class="${klass}">${daraja}</span></div>`;
+
+            document.getElementById('parolResult').innerHTML = html;
+            document.getElementById('parolResult').classList.add('show');
+        }
+
+        console.log("🎮 Operator Playground ishga tushdi!");
+    </script>
+</body>
+</html>
+
+</body>
+</html>
