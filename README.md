@@ -1,2 +1,2 @@
-# operatorlar-amlyoti
+# operatorlar-amlyotic
 aperotor
